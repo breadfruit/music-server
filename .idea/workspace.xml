@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="173d8bb0-dd61-43c9-b2aa-5d04e9414337" name="变更" comment="update">
+    <list default="true" id="173d8bb0-dd61-43c9-b2aa-5d04e9414337" name="变更" comment="lock">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,7 +97,7 @@
       <workItem from="1648365244074" duration="4246000" />
       <workItem from="1649036975618" duration="2351000" />
       <workItem from="1649058844793" duration="19940000" />
-      <workItem from="1649125402840" duration="6204000" />
+      <workItem from="1649125402840" duration="8025000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1649124740799</created>
@@ -155,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649131672393</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="播放错误修复">
+      <created>1649147552485</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1649147552485</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,7 +171,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="播放错误修复" />
+    <option name="LAST_COMMIT_MESSAGE" value="播放错误修复" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
