@@ -86,7 +86,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 
-app.use(require('koa-static')(__dirname + '/public'))
+const static = require('koa-static')
+const range = require('koa-range');
+app.use(range)
 app.use(require('koa-static')(__dirname + '/upload'))
 
 app.use(
@@ -130,75 +132,6 @@ router.post('/profile', upload.single('file'), async ctx => {
 
       }
 });
-
-const PUBLIC_PATH = path.resolve(__dirname, './upload');
-
-router.get('/songUrl', async(ctx, next) => {
-    console.log('111')
-    const {url} = ctx.query;
-
-    const filePath = url;
-    // 拼接文件的绝对路径
-    let downloadPath = path.resolve(PUBLIC_PATH, filePath);
-    console.log('DownloadPath: ' + downloadPath)
-
-
-    // 文件的信息
-    let stat;
-    try{
-        console.log('file message begin')
-        // 通过fs模块获取文件的信息，报错就代表着不存在该文件
-        stat = fs.readdirSync(downloadPath);
-        console.log('file message end' + stat)
-    }catch(error) {
-        // 不存在该文件
-        console.log('不存在该文件')
-        ctx.status = 404
-
-        ctx.res.end();
-    }
-
-    // 获取文件的大小
-    let {size: total} = stat;
-
-    // 获取请求头部信息
-    let range = ctx.get("Range");
-    var filename = encodeURIComponent(url);
-    // 如果包含该头部
-    if(range) {
-        // 获取范围请求的开始和结束位置
-        let [, start, end] = range.match(/(\d*)-(\d*)/);
-
-        // 处理请求头中范围参数不传的问题
-        start = start ? parseInt(start) : 0;
-        end = end ? parseInt(end) : total - 1;
-
-        // 如果范围是合理的，服务器会返回所请求的部分内容，并带上 206 Partial Content 状态码. 当前内容的范围会在 Content-Range 消息头中申明。
-        ctx.status = 206;
-
-        ctx.set("Access-Control-Allow-Credentials", true);
-        // 服务器告诉浏览器，该内容可以使用 Accept-Ranges 消息头进行分部分请求。
-        ctx.set("Accept-Ranges", "bytes");
-        // 当前内容的范围会在 Content-Range 消息头中申明。
-        ctx.set("Content-Range", `bytes ${start}-${end}/${total}`);
-        // 以二进制流进行文件的传输
-        ctx.set("Content-Type", "application/octet-stream");
-        ctx.set("Content-Disposition", 'attachment; filename=' + filename);
-        ctx.set("Content-Length", total);
-
-        fs.createReadStream(downloadPath, { start, end }).pipe(ctx.response);
-    }else {
-        console.log('==============')
-        ctx.status = 200;
-        ctx.set("Accept-Ranges", "bytes");
-        ctx.set("Access-Control-Allow-Credentials", true);
-        ctx.set("Content-Type", "audio/mpeg;charset=UTF-8");
-        ctx.set("Content-Disposition", `inline; filename="songUrl?url=${filename}"`);
-        ctx.set("Content-Length", total);
-    }
-
-});
-
 
 app.use(router.routes()).use(router.allowedMethods())
 

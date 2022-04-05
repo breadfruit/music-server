@@ -147,8 +147,8 @@ async function getSongUrl(ctx) {
   });
 
   const songUrl = songData.dataValues.songUrl;
-  console.log(`http://localhost:6060/songUrl/${songUrl}`)
-  ctx.success('获得播放歌曲url', `http://localhost:6060/songUrl?url=${songUrl}`);
+  console.log(`http://localhost:6060/${songUrl}`)
+  ctx.success('获得播放歌曲url', `http://localhost:6060/${songUrl}`);
 }
 
 
